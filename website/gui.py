@@ -349,7 +349,7 @@ class GUI:
         self.robot_stay = False
 
         # Font
-        self.font = pygame.font.SysFont("lucidaconsole", int(10 * self.height / 1080), bold=True)
+        self.font = pygame.font.SysFont("lucidaconsole", int(10 * self.height / 1080))
 
         # Colors --Yotam
         self.colors = [list(np.random.choice(range(256), size=3)) for _ in stn_pos]
