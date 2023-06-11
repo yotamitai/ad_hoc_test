@@ -469,7 +469,7 @@ class GUI:
         self.render_explanation(WHITE)  # Remove old explanation
         self.font = pygame.font.SysFont("lucidaconsole", 30)
         goals = [x+1 for x in inferred_goals]
-        self.render_text(f"Explanation: {goals}", 0, self.num_rows - 1)
+        self.render_text("Explanation: {}".format(goals), 0, self.num_rows - 1)
 
     def draw_experiment_screen(self):
         self.screen.fill(WHITE)
