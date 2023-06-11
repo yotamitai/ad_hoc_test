@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="./skulpt/skulpt.min.js" type="text/javascript"></script>
+        <script src="./skulpt/skulpt-stdlib.js" type="text/javascript"></script>
+        <script src="include_pygame.js" type="text/javascript"></script>
+        <script src="setup.js" type="text/javascript"></script>
+    </head>
+
+    <body>
+        <div style="text-align: center; margin-top: 10px; margin-bottom: 10px; font-size: 20px;">
+            Go to the green station. The fetcher is trying to predict where you are going.
+        </div>
+        <div id="mycanvas"></div>
+        <div id="output"></div>
+        
+        <div>
+            <div id="codeText" style="display:none; margin-left: 40%"></div>
+            <button id="code" style="display: none; height: 40px; width: 100px; margin-left: 50%" onclick="getCode()">Get Code</button>
+        </div>
+
+        <script>
+            $("document").ready(function () {
+                generateKey();
+                // Configuration for skulpt
+                (Sk.TurtleGraphics || (Sk.TurtleGraphics = {})).target =
+                    "mycanvas";
+                Sk.configure({ read: builtinRead, output: printString });
+                
+                // PygameGUI
+                var sourcePath = "gui.py";
+                $.get(sourcePath, function (data) {
+                    $("#code").val(data); // put python script in html (plaintext)
+                
+                    // Set up canvas
+                    Sk.main_canvas = document.createElement("canvas");
+                    Sk.quitHandler = function () {
+                        $(".modal").modal("hide");
+                    };
+                    addModal();
+
+                    // Run gui.py
+                    var prog = document.getElementById("code").value;
+
+                    Sk.misceval.asyncToPromise(function () {
+                        try {
+                            return Sk.importMainWithBody(
+                                "<stdin>",
+                                false,
+                                prog,
+                                true
+                            );
+                        } catch (e) {
+                            alert(e);
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
