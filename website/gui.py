@@ -833,9 +833,9 @@ def run_exp():
             fetcher_move = fetcher(f_obs)
 
             #Get user action
-            t0 = time.clock()
+            t0 = time.time()
             action, worker_pos, fetcher_pos = gui.on_execute(fetcher_move)
-            t1 = time.clock()
+            t1 = time.time()
 
             # Escape (backspace button)
             if action == -1:

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 
 import sys
 import json
@@ -21,7 +21,6 @@ if(text == "date"):
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
     output.write(dt_string)
-
 
 else:
     output.write(text)
